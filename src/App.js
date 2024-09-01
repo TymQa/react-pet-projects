@@ -1,38 +1,68 @@
-import './index.scss' // Импорт CSS для стилей компонента.
-import React from 'react' // Импорт React для использования его функциональности.
+import React from 'react';
+import './index.scss';
+
+const Modal = ({open, setOpen, children}) => (
+	<div className={`overlay animated ${open ? 'show' : ''}`}>
+		<div className='modal'>
+			<svg
+				onClick={() => setOpen(false)}
+				height='200'
+				viewBox='0 0 200 200'
+				width='200'
+			>
+				<title />
+				<path d='M114,100l49-49a9.9,9.9,0,0,0-14-14L100,86,51,37A9.9,9.9,0,0,0,37,51l49,49L37,149a9.9,9.9,0,0,0,14,14l49-49,49,49a9.9,9.9,0,0,0,14-14Z' />
+			</svg>
+			{children}
+		</div>
+	</div>
+)
 
 function App() {
-	// Хук useState создает переменную состояния "count" с начальным значением 0
-	// и функцию "setCount" для обновления этой переменной.
-	const [count, setCount] = React.useState(0)
-
-	// Функция-обработчик для увеличения значения count на 1.
-	const onClickPlus = () => {
-		setCount(count + 1) // setCount обновляет состояние, увеличивая count на 1.
-	}
-
-	// Функция-обработчик для уменьшения значения count на 1.
-	const onClickMinus = () => {
-		setCount(count - 1) // setCount обновляет состояние, уменьшая count на 1.
-	}
+	const [open, setOpen] = React.useState(false)
 
 	return (
 		<div className='App'>
-			{' '}
-			{/* Основной контейнер компонента с CSS-классом "App". */}
-			<div>
-				<h2>Счетчик:</h2> {/* Заголовок счетчика. */}
-				<h1>{count}</h1>{' '}
-				{/* Текущее значение счетчика, отображаемое на экране. */}
-				<button onClick={onClickMinus} className='minus'>
-					- Минус {/* Кнопка уменьшения значения счетчика. */}
-				</button>
-				<button onClick={onClickPlus} className='plus'>
-					Плюс + {/* Кнопка увеличения значения счетчика. */}
-				</button>
-			</div>
+			<button onClick={() => setOpen(true)} className='open-modal-btn'>
+				✨ Открыть окно
+			</button>
+			<Modal open={open} setOpen={setOpen}>
+				<img src='https://media2.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif' />
+				<h3>Это модальное окно</h3>
+				<button>321321</button>
+			</Modal>
 		</div>
 	)
 }
 
-export default App
+
+/* ВТОРОЙ ВАРИАНТ ДЛЯ БЫСТРОГО ОТКРЫВАНИЕ И ЗАКРЫВАНИЕ МОДАЛЬНОГО ОКНА */
+// function App() {
+// 	const [open, setOpen] = React.useState(false)
+
+//   return (
+// 		<div className='App'>
+// 			<button onClick={() => setOpen(true)} className='open-modal-btn'>
+// 				✨ Открыть окно
+// 			</button>
+// 			{open && (
+// 				<div className='overlay'>
+// 					<div className='modal'>
+// 						<svg
+// 							onClick={() => setOpen(false)}
+// 							height='200'
+// 							viewBox='0 0 200 200'
+// 							width='200'
+// 						>
+// 							<title />
+// 							<path d='M114,100l49-49a9.9,9.9,0,0,0-14-14L100,86,51,37A9.9,9.9,0,0,0,37,51l49,49L37,149a9.9,9.9,0,0,0,14,14l49-49,49,49a9.9,9.9,0,0,0,14-14Z' />
+// 						</svg>
+// 						<img src='https://media2.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif' />
+// 					</div>
+// 				</div>
+// 			)}
+// 		</div>
+// 	)
+// }
+
+export default App;
